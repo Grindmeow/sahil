@@ -2,7 +2,7 @@ const express = require('express')
 
 const { getClasses, getClass, createClass, deleteClass, updateClass } = require('../models/controller/ClassController')
 
-const { fileCheck } = require('../routes/middleware/file_check')
+const { fileCheck } = require('../middleware/file_check')
 
 
 const router = express.Router();

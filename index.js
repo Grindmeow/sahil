@@ -4,19 +4,21 @@ const teachers = require('./routes/TeacherRoutes')
 const classes = require('./routes/ClassesRoutes')
 const mongoose = require('mongoose')
 const cors = require('cors');
+const fileUpload = require('express-fileupload')
 
 const app = express();
 
 //middleware
 app.use(express.json())
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
-})
+app.use('/uploads', express.static('uploads'))
+app.use(fileUpload({
+  limits: { fileSize: 5 * 1024 * 1024 },
+  abortOnLimit: true,
+}))
 
 app.use(cors());
 //routes
-app.use('/api/teachers', teachers)
+app.use(teachers);
 app.use('/api/classes', classes)
 
 //connect to db
